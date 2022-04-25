@@ -46,6 +46,7 @@ class wsa:
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
+
     def retrive_policy(self):
         try:
             resp = requests.get(self.wsa_base_url + self.policy_endpoint, headers=self.headers, verify=False)
@@ -55,6 +56,7 @@ class wsa:
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
+
     def update_policy(self, policy):
         try:
             resp = requests.put(self.wsa_base_url + self.policy_endpoint, headers=self.headers, json=access_policies, verify=False)
@@ -62,19 +64,26 @@ class wsa:
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
-    def get_config_file(self):
+
+    def get_config_file(self , filename):
         try:
-            resp = requests.get(self.wsa_base_url + self.config_files_endpoint, headers=self.headers, verify=False)
-            with open("template.csv", 'wb') as csr:
-                for chunk in r.iter_content(chunk_size=1024):
-                    if chunk:
-                        csr.write(chunk) #Recheck this again
+            get_config_header = self.headers
+            get_config_header["filename"] = filename
+            resp = requests.get(self.wsa_base_url + self.config_files_endpoint, headers = get_config_header, verify=False)
+
+            filePath = './data.csv'
+            with open(filePath, "wb") as f: 
+                f.write(resp.content)
+            print("File saved")
 
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
-    def create_config_files(self, config_file):
+
+    def update_config_files(self, config_file):
         try:
+            get_config_header = self.headers
+            get_config_header["Content-Type"] = "multipart/form-data"
             resp = requests.put(self.wsa_base_url + self.config_files_endpoint, headers=self.headers, json = config_file, verify=False)
 
         except requests.exceptions.RequestException as e:

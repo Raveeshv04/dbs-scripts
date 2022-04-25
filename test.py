@@ -14,7 +14,7 @@ class sample:
     
 if __name__ == '__main__':
     samp = sample("harsh" , "123")
-    print(samp.__token)
+    print(samp.token)
     #print(samp.get_token())
     
     
