@@ -1,0 +1,45 @@
+{
+    "access_policies": [
+        {
+            "policy_status": "enable",
+            "policy_name": "test AP python",
+            "policy_order": 1,
+            "membership": {
+                "identification_profiles": [
+                    {
+                        "profile_name": "testProfile",
+                        "auth": "No Authentication"
+                    }
+                ],
+                "user_agents": {
+                    "predefined": [
+                        "Firefox",
+                        "Safari",
+                        "MSIE/10"
+                    ],
+                    "custom": [
+                        "Mozilla/. Gecko/. Firefox/"
+                    ],
+                    "is_inverse": 0
+                }
+            },
+            "protocols_user_agents": {
+                "state": "custom",
+                "allow_connect_ports": [
+                    "20",
+                    "21",
+                    "1-65535"
+                ],
+                "block_protocols": [
+                    "ftp",
+                    "http",
+                    "https"
+                ],
+                "block_custom_user_agents": [
+                    "Mozilla/.* Gecko/.* Firefox/, Mozilla/4.0 (compatible; MSIE 5.5;)",
+                    "test"
+                ]
+            }
+        }
+    ]
+}
