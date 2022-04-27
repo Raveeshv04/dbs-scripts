@@ -1,0 +1,118 @@
+# Copyright (c) 2020 Cisco and/or its affiliates.
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+               # https://developer.cisco.com/docs/licenses
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - wsa_cred.yml
+
+  tasks:
+    - name: Authenticate and get JAVA WEB TOKEN (JWT)
+      uri:
+        url: "{{ url }}/wsa/api/v2.0/login"
+        method: POST
+        return_content: yes
+        validate_certs: no
+        headers:
+          Content-Type: "application/json"
+          Accept: "application/json"
+        body:
+          data:
+            userName: "{{ username | string | b64encode }}"
+            passphrase: "{{ password | string | b64encode }}"
+        body_format: json
+      register: token_result
+      tags:
+        - token
+        - access-policies
+        - routing-policies
+
+    - name: Print result of API Token call
+      debug:
+        var: token_result.json["data"]["jwtToken"]
+      tags:
+        - token
+
+    - name: Retrieve Access Policies
+      uri:
+        url: "{{ url }}/wsa/api/v3.0/web_security/access_policies"
+        method: GET
+        return_content: yes
+        validate_certs: no
+        headers:
+          Content-Type: "application/json"
+          Accept: "application/json"
+          jwtToken: "{{ token_result.json['data']['jwtToken'] }}"
+      register: result_access_policies
+      tags:
+        - access-policies
+
+    - name: Set res_data of retrieved Access Policies
+      set_fact:
+        res_data: "{{ result_access_policies.json['access_policies'] }}"
+      tags:
+        - access-policies
+
+    - debug:
+        msg: "{{ item.policy_name }}: {{ item.policy_status }} : {{ item.membership }}"
+      loop: "{{ res_data }}"
+      tags:
+        - access-policies
+
+    - name: Copy formatted results of API URL Categories call to text file
+      lineinfile:
+        path: ./policy/access-policy-list.txt
+        line: "{{ item }}"
+        state: present
+        create: yes
+      loop: "{{ res_data }}"
+      tags:
+        - access-policies
+
+    - name: Retrieve Routing Policies
+      uri:
+        url: "{{ url }}/wsa/api/v3.0/web_security/routing_policies"
+        method: GET
+        return_content: yes
+        validate_certs: no
+        headers:
+          Content-Type: "application/json"
+          Accept: "application/json"
+          jwtToken: "{{ token_result.json['data']['jwtToken'] }}"
+      register: result_access_policies
+      tags:
+        - routing-policies
+
+    - name: Set res_data of retrieved Routing Policies
+      set_fact:
+        res_data: "{{ result_access_policies.json['routing_policies'] }}"
+      tags:
+        - routing-policies
+
+    - debug:
+        msg: "{{ item.policy_name }}: {{ item.policy_status }} : {{ item.membership }}"
+      loop: "{{ res_data }}"
+      tags:
+        - routing-policies
+
+    - name: Copy of Routing policies to text file
+      lineinfile:
+        path: ./policy/routing-policy-list.txt
+        line: "{{ item }}"
+        state: present
+        create: yes
+      loop: "{{ res_data }}"
+      tags:
+        - routing-policies

@@ -1,0 +1,8 @@
+# common Dependencies
+pyYaml
+
+# For python Script
+requests
+
+# For Ansible Playbook
+ansible
