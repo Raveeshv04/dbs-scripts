@@ -1,6 +1,4 @@
-import requests, urllib3
-import base64, sys
-import json, yaml
+import requests, urllib3, base64, json
 
 
 urllib3.disable_warnings() #suppress output about insecure requests
