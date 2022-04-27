@@ -1,0 +1,784 @@
+{
+	"info": {
+		"_postman_id": "74ca89ba-3114-40f3-927f-b5f283b045fe",
+		"name": "WPA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Policy",
+			"item": [
+				{
+					"name": "Add Access Policy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"access_policies\": [\n        {\n            \"policy_status\": \"enable\",\n            \"policy_name\": \"test AP2\",\n            \"policy_order\": 1,\n            \"membership\": {\n                \"identification_profiles\": [\n                    {\n                        \"profile_name\": \"testProfile\",\n                        \"auth\": \"No Authentication\"\n                    }\n                ],\n                \"user_agents\": {\n                    \"predefined\": [\n                        \"Firefox\",\n                        \"Safari\",\n                        \"MSIE/10\"\n                    ],\n                    \"custom\": [\n                        \"Mozilla/. Gecko/. Firefox/\"\n                    ],\n                    \"is_inverse\": 0\n                }\n            },\n            \"protocols_user_agents\": {\n                \"state\": \"custom\",\n                \"allow_connect_ports\": [\n                    \"20\",\n                    \"21\",\n                    \"1-65535\"\n                ],\n                \"block_protocols\": [\n                    \"ftp\",\n                    \"http\",\n                    \"https\"\n                ],\n                \"block_custom_user_agents\": [\n                    \"Mozilla/.* Gecko/.* Firefox/, Mozilla/4.0 (compatible; MSIE 5.5;)\",\n                    \"test\"\n                ]\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/web_security/access_policies",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"web_security",
+								"access_policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Access Policy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"access_policies\": [\n        {\n            \"policy_status\": \"disable\",\n            \"policy_name\": \"test AP2\",\n            \"policy_order\": 1,\n            \"membership\": {\n                \"identification_profiles\": [\n                    {\n                        \"profile_name\": \"testProfile\",\n                        \"auth\": \"No Authentication\"\n                    }\n                ],\n                \"user_agents\": {\n                    \"predefined\": [\n                        \"Firefox\",\n                        \"Safari\",\n                        \"MSIE/10\"\n                    ],\n                    \"custom\": [\n                        \"Mozilla/. Gecko/. Firefox/\"\n                    ],\n                    \"is_inverse\": 0\n                }\n            },\n            \"protocols_user_agents\": {\n                \"state\": \"custom\",\n                \"allow_connect_ports\": [\n                    \"20\",\n                    \"21\",\n                    \"1-65535\"\n                ],\n                \"block_protocols\": [\n                    \"ftp\",\n                    \"http\",\n                    \"https\"\n                ],\n                \"block_custom_user_agents\": [\n                    \"Mozilla/.* Gecko/.* Firefox/, Mozilla/4.0 (compatible; MSIE 5.5;)\",\n                    \"test\"\n                ]\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/web_security/access_policies",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"web_security",
+								"access_policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Access Policy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "jwtToken",
+								"value": "{{jwtToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/web_security/access_policies",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"web_security",
+								"access_policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Routing Policy Retrive",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/web_security/routing_policies",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"web_security",
+								"routing_policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Routing Policy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"routing_policies\": [\n        {\n            \"policy_description\": \"\",\n            \"ip_spoofing\": \"use_global\",\n            \"policy_order\": 1,\n            \"policy_status\": \"enable\",\n            \"policy_name\": \"testRP1\",\n            \"membership\": {\n                \"identification_profiles\": [\n                    {\n                        \"profile_name\": \"testProfile\",\n                        \"auth\": \"No Authentication\"\n                    }\n                ],\n                \"subnets\": [\"198.19.10.36\"]\n            },\n            \"routing_destination\": {\n                \"upstream_proxy_group\": \"dummyproxy\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/web_security/routing_policies",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"web_security",
+								"routing_policies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proxy",
+			"item": [
+				{
+					"name": "Retrieve Upstream Proxy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v2.0/configure/network/upstream_proxy",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v2.0",
+								"configure",
+								"network",
+								"upstream_proxy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PAC",
+			"item": [
+				{
+					"name": "Retrieve PAC",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/security_services/pac_basic_setting",
+							"protocol": "https",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"wsa",
+								"api",
+								"v3.0",
+								"security_services",
+								"pac_basic_setting"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let encodedUsername=CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pm.collectionVariables.get(\"username\")));",
+							"let encodedPassword=CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pm.collectionVariables.get(\"password\")));",
+							"",
+							"pm.collectionVariables.set(\"encodedUsername\", encodedUsername);",
+							"pm.collectionVariables.set(\"encodedPassword\", encodedPassword);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let json_response = pm.response.json();",
+							"pm.collectionVariables.set(\"jwtToken\",json_response.data.jwtToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": \n    {\n        \"userName\": \"{{encodedUsername}}\",\n        \"passphrase\": \"{{encodedPassword}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{port}}/wsa/api/v2.0/login",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"wsa",
+						"api",
+						"v2.0",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve URL Categories",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://{{hostname}}:{{port}}/wsa/api/v3.0/generic_resources/url_categories",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"wsa",
+						"api",
+						"v3.0",
+						"generic_resources",
+						"url_categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add URL Categories",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "jwtToken",
+						"value": "{{jwtToken}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"category_name\": \"Allowed URLs\",\n    \"category_type\":\"local\",\n    \"list_order\":100,\n    \"sites\": [\n        \"cisco.com\",\n        \"google.com\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{port}}/wsa/api/v2.0/configure/web_security/url_categories",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"wsa",
+						"api",
+						"v2.0",
+						"configure",
+						"web_security",
+						"url_categories"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostname",
+			"value": "198.19.10.98",
+			"type": "default"
+		},
+		{
+			"key": "port",
+			"value": "6443",
+			"type": "default"
+		},
+		{
+			"key": "username",
+			"value": "admin",
+			"type": "default"
+		},
+		{
+			"key": "password",
+			"value": "Cisco!23",
+			"type": "default"
+		},
+		{
+			"key": "encodedUsername",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "encodedPassword",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "jwtToken",
+			"value": ""
+		}
+	]
+}
