@@ -11,14 +11,14 @@ class wsa:
         self.password = password
         self.file_save_location = file_save_location
         self.policy_endpoint = "/wsa/api/v3.0/web_security/access_policies"
-        self.config_files_endpoint = "wsa/api/v3.0/system_admin/configuration_file"
+        self.config_files_endpoint = "/wsa/api/v3.0/system_admin/configuration_file"
         self.wsa_base_url = wsa_base_url
         self.headers = {
             "Content-Type": "application/json",
             "Accept": "application/json"
         }
         self.__token = ""
-        self.__get_token()
+        self.__getToken()
         self.headers["jwtToken"] = self.__token
 
 
@@ -59,7 +59,7 @@ class wsa:
 
     def update_policy(self, policy):
         try:
-            resp = requests.put(self.wsa_base_url + self.policy_endpoint, headers=self.headers, json=access_policies, verify=False)
+            resp = requests.put(self.wsa_base_url + self.policy_endpoint, headers=self.headers, json=policy, verify=False)
 
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
