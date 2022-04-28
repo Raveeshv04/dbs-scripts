@@ -18,6 +18,7 @@ class WSAUtil(object):
 The available <command>'s are:
     get     get an exisiting WSA Resource
     create  to create an new WSA Resource
+    update    to update an existing WSA Resource
         ''')
         parser.add_argument('command')
 
@@ -49,6 +50,18 @@ The available <resource>'s are:
 
         args = parser.parse_args(sys.argv[2:])
         getattr(self, 'create_' + args.resource.replace('-', '_'))(self.wsa, self.headers,args.file)
+
+    def update(self):
+        parser = argparse.ArgumentParser(usage='''WSAUtil.py edit <resource> [<args>]
+The available <resource>'s are:
+    routing-policy    get an exisiting WSA Resource
+    access-policy     to create an new WSA Resource
+            ''')
+        parser.add_argument('resource')
+        parser.add_argument('-f', '--file', required=True, help="supported file fo creating resource")
+
+        args = parser.parse_args(sys.argv[2:])
+        getattr(self, 'update_' + args.resource.replace('-', '_'))(self.wsa, self.headers, args.file)
 
     def getToken(self,wsa, headers):
         # username and password must be specified as base64 encoded strings in the body of the token request
@@ -83,7 +96,10 @@ The available <resource>'s are:
             with open(export,mode='w') as fw:
                 fw.write(resp.text)
 
-        pprint.pprint(resp.text)  # Print result of API call
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)  # Print result of API call
 
     def create_access_policy(self,wsa, headers, file):
         token = self.getToken(wsa, headers)
@@ -96,7 +112,26 @@ The available <resource>'s are:
         # Make POST request to WSA
         print('Creating Access Policy ...')
         resp = requests.post(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
-        pprint.pprint(resp.status_code, resp.text)
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)
+
+    def update_access_policy(self,wsa, headers, file):
+        token = self.getToken(wsa, headers)
+        headers["jwtToken"] = token
+
+        policy_endpoint = "/wsa/api/v3.0/web_security/access_policies"
+        json_data = {}
+        with open(file) as fp:
+            json_data = fp.read()
+        # Make PUT request to WSA
+        print('Updating Existing Access Policy ...')
+        resp = requests.put(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)
 
     def get_routing_policy(self,wsa, headers,export):
         token = self.getToken(wsa, headers)
@@ -110,7 +145,10 @@ The available <resource>'s are:
             with open(export,mode='w') as fw:
                 fw.write(resp.text)
 
-        pprint.pprint(resp.text)  # Print result of API call
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)  # Print result of API call
 
     def create_routing_policy(self,wsa, headers, file):
         # Retrieve token to authenticate request and save it in request headers
@@ -125,7 +163,28 @@ The available <resource>'s are:
         print("Creating Routing Policy ...")
         # Make POST request to WSA
         resp = requests.post(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
-        print(resp.status_code, resp.text)
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)
+
+    def update_routing_policy(self,wsa, headers, file):
+        # Retrieve token to authenticate request and save it in request headers
+        token = self.getToken(wsa, headers)
+        headers["jwtToken"] = token
+
+        policy_endpoint = "/wsa/api/v3.0/web_security/routing_policies"
+        json_data = {}
+        with open(file) as fp:
+            json_data = fp.read()
+
+        print("Updating Existing Routing Policy ...")
+        # Make PUT request to WSA
+        resp = requests.put(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
+        if resp.text:
+            pprint.pprint(resp.status_code, resp.text)
+        else:
+            pprint.pprint(resp.status_code)
 
 
 if __name__ == '__main__':

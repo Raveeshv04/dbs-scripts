@@ -1,7 +1,7 @@
 {
     "access_policies": [
         {
-            "policy_status": "enable",
+            "policy_status": "disable",
             "policy_name": "test AP python",
             "policy_order": 1,
             "membership": {
