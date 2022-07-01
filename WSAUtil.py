@@ -113,9 +113,9 @@ The available <resource>'s are:
         print('Creating Access Policy ...')
         resp = requests.post(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
         if resp.text:
-            pprint.pprint(resp.status_code, resp.text)
+            pprint.pprint(resp.status_code+'\n'+resp.text,indent=2)
         else:
-            pprint.pprint(resp.status_code)
+            pprint.pprint(resp.status_code,indent=2)
 
     def update_access_policy(self,wsa, headers, file):
         token = self.getToken(wsa, headers)
@@ -129,9 +129,9 @@ The available <resource>'s are:
         print('Updating Existing Access Policy ...')
         resp = requests.put(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
         if resp.text:
-            pprint.pprint(resp.status_code, resp.text)
+            pprint.pprint(resp.status_code+'\n'+resp.text,indent=2)
         else:
-            pprint.pprint(resp.status_code)
+            pprint.pprint(resp.status_code,indent=2)
 
     def get_routing_policy(self,wsa, headers,export):
         token = self.getToken(wsa, headers)
@@ -146,9 +146,9 @@ The available <resource>'s are:
                 fw.write(resp.text)
 
         if resp.text:
-            print(resp.status_code, resp.text)
+            pprint.pprint(resp.status_code+'\n'+resp.text,indent=2)
         else:
-            pprint.pprint(resp.status_code)  # Print result of API call
+            pprint.pprint(resp.status_code,indent=2)  # Print result of API call
 
     def create_routing_policy(self,wsa, headers, file):
         # Retrieve token to authenticate request and save it in request headers
@@ -164,9 +164,9 @@ The available <resource>'s are:
         # Make POST request to WSA
         resp = requests.post(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
         if resp.text:
-            pprint.pprint(resp.status_code, resp.text)
+            pprint.pprint(resp.status_code+'\n'+resp.text,indent=2)
         else:
-            pprint.pprint(resp.status_code)
+            pprint.pprint(resp.status_code,indent=2)
 
     def update_routing_policy(self,wsa, headers, file):
         # Retrieve token to authenticate request and save it in request headers
@@ -182,9 +182,9 @@ The available <resource>'s are:
         # Make PUT request to WSA
         resp = requests.put(wsa["url"] + policy_endpoint, headers=headers, json=json.loads(json_data), verify=False)
         if resp.text:
-            pprint.pprint(resp.status_code, resp.text)
+            pprint.pprint(resp.status_code+'\n'+resp.text,indent=2)
         else:
-            pprint.pprint(resp.status_code)
+            pprint.pprint(resp.status_code,indent=2)
 
 
 if __name__ == '__main__':
