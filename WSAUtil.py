@@ -146,7 +146,7 @@ The available <resource>'s are:
                 fw.write(resp.text)
 
         if resp.text:
-            pprint.pprint(resp.status_code, resp.text)
+            print(resp.status_code, resp.text)
         else:
             pprint.pprint(resp.status_code)  # Print result of API call
 
